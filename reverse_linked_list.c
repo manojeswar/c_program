@@ -116,6 +116,26 @@ void delete_value (struct list ** head, int value)
 	}
 }
 
+void reverse_list(struct list **head)
+{
+	struct list *prev, *current, *next;
+	// use 3 pointers  previous ( NULL) <- current -> next pointers to traverse
+
+	prev = NULL;
+	current = *head;
+
+	while(current != NULL)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	*head = prev;
+
+	return;
+}
+
 void print_list (struct list* head)
 {
 	if (head == NULL)
@@ -158,8 +178,8 @@ int main(void)
 	print_list(head);
 	delete_value(&head,1);
 	print_list(head);
-
 	reverse_list(&head);
+	print_list(head);
 
 	return 0;
 }
