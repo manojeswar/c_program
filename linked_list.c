@@ -82,18 +82,55 @@ void insert_between (struct list **head, int value, int pos)
 
 }
 
+void delete_value (struct list ** head, int value)
+{
+	struct list *current = *head;
+	struct list *delete = NULL;
+	struct list *prev;
+
+	if(current == NULL) {
+		printf("No List\n");
+		return;
+	} else if ((current != NULL) && (current->data == value)) { 
+		*head = current->next;
+		free(current);
+		current = NULL;
+		return;
+	}
+
+	while ( current!= NULL && (current->data!=value))
+	{
+		prev = current;
+		current = current->next;
+	}
+	
+	if (current == NULL)
+		return;
+
+	if(current->data == value)
+	{
+		prev->next = current->next;
+		free(current);
+		current = NULL;
+		return;
+	}
+}
+
 void print_list (struct list* head)
 {
+	if (head == NULL)
+		return;
+
+	printf("Print List\n");
 	while(head != NULL && head->next!= NULL)
 	{
 		printf("%d   >",head->data);
 		head = head->next;
 	} 
 	printf("%d\n",head->data);
-
 }
 
-int main()
+int main(void)
 {
 
 	struct list *head = NULL;
@@ -114,6 +151,13 @@ int main()
 	insert_between(&head,1,1);
 	insert_between(&head,2,2);
 
+	print_list(head);
+
+	delete_value(&head,15);
+	print_list(head);
+	delete_value(&head,2);
+	print_list(head);
+	delete_value(&head,1);
 	print_list(head);
 
 	return 0;
