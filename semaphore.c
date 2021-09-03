@@ -10,24 +10,24 @@ int val = 0;
 void * one (void)
 {
 	do {
-	if (val%2 == 0) {
-	sem_wait(&semaphore);
-	printf("Printing from t1 : %d\n", val);
-	val = val + 1;
-	sem_post(&semaphore);
-	}
+		if (val%2 == 0) {
+			sem_wait(&semaphore);
+			printf("Printing from t1 : %d\n", val);
+			val = val + 1;
+			sem_post(&semaphore);
+		}
 	} while (val < 101);
 }
 
 void * two (void)
 {
 	do {
-	if (val%2 != 0 ) {
-	sem_wait(&semaphore);
-	printf("Printing from t2 : %d\n", val);
-	val = val + 1;
-	sem_post(&semaphore);
-	}
+		if (val%2 != 0 ) {
+			sem_wait(&semaphore);
+			printf("Printing from t2 : %d\n", val);
+			val = val + 1;
+			sem_post(&semaphore);
+		}
 	} while (val < 101);
 }
 
